@@ -3,6 +3,7 @@ package gh
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 
 	"github.com/google/go-github/v47/github"
 )
@@ -35,6 +36,7 @@ func ExtractRunsOnLabels(in []byte) ([]string, error) {
 	switch t := event.(type) {
 	case *github.WorkflowJobEvent:
 		// workflow_job has labels, can extract labels
+		log.Printf("job name: %s, label: %s", *t.GetWorkflowJob().Name, t.GetWorkflowJob().Labels)
 		return t.GetWorkflowJob().Labels, nil
 	}
 
